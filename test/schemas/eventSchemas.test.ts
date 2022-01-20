@@ -495,6 +495,21 @@ describe('The "linkOpened" payload schema', () => {
         [{
             link: 'http://www.foo.com.br',
         }],
+        [{
+            link: '/foo',
+        }],
+        [{
+            link: 'foo://example.com',
+        }],
+        [{
+            link: 'http://www.foo.com.br:3000',
+        }],
+        [{
+            link: 'http://www.foo.com.br/?key=value',
+        }],
+        [{
+            link: 'http://www.foo.com.br/#fragment',
+        }],
     ])('should allow %s', (value: Record<string, unknown>) => {
         function validate(): void {
             linkOpened.validate(value);
@@ -511,10 +526,6 @@ describe('The "linkOpened" payload schema', () => {
         [
             {link: null},
             'Expected value of type string at path \'/link\', actual null.',
-        ],
-        [
-            {link: ''},
-            'Invalid url format at path \'/link\'.',
         ],
     ])('shout not allow %s', (value: Record<string, unknown>, message: string) => {
         function validate(): void {
